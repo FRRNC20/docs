@@ -1,0 +1,51 @@
+---
+title: "Changelog"
+description: "New features, updates, and fixes to Cuvo Health."
+---
+
+<Update label="July 4, 2026" description="Weekly release">
+
+## New features
+
+**AI Website Studio**
+
+Clinic operators can now edit their marketing site by chatting with an AI. Open the Studio for your tenant, describe the change you want in plain language, preview the draft live, and publish when you're happy. The AI is scoped to your tenant only and can add, update, reorder, and remove blocks — publishing stays a human action.
+
+**Multi-tenant marketing site rendering**
+
+Each tenant now has its own live public marketing site at `/sites/<tenant>`. Pages are content-managed, block-based, and rendered per tenant with strict isolation between clinics.
+
+**Homepage block kit (13 sections)**
+
+A full library of drop-in, AI-editable homepage sections is now available:
+
+- Header and Footer — sticky nav with brand, links, and CTAs; footer with trust badges and disclaimer
+- Hero — Trustpilot eyebrow, headline with rotating words, feature list
+- Benefits Marquee — scrolling benefit strip
+- Product Cards and Category Cards — featured products and category tiles with real imagery
+- Treatment Cards — 8-card treatment showcase with glow effect
+- Weight Loss Plan — feature band with benefit bullets and CTAs
+- BMI Calculator — interactive calculator with projected-loss slider and compliance disclaimer
+- Results Carousel — before/after image marquee
+- Blog Posts and FAQ — content sections
+- CTA Banner — green promotional band with checklist and newsletter signup
+
+All 13 sections are editable through the AI Studio.
+
+## Updates
+
+**Studio model upgraded to Fireworks GLM-5.2**
+
+The AI Studio now runs on Fireworks GLM-5.2 for faster, higher-quality edits. No action required.
+
+**Primary host resolution**
+
+Deployments with a configured primary app host now correctly resolve to the default organization, so authenticated requests on the app's own host route as expected.
+
+## Fixes
+
+- **Block rendering:** Optional block fields (like images) no longer break rendering when left empty on published pages.
+- **Configuration reliability:** Internal configuration now loads consistently across all runtimes, eliminating environment-specific load failures.
+- **Tenant isolation hardening:** Applied fixes from an internal red-team review. No isolation defects were found; all changes were low-severity cleanups.
+
+</Update>
