@@ -1,0 +1,33 @@
+---
+title: "Week of June 20, 2026"
+description: "AI Website Studio launch, complete homepage block library, and multi-tenant marketing pages."
+---
+
+## New features
+
+**AI Website Studio.** Clinic operators can now open the Studio, describe edits to their marketing pages in plain English, preview a live draft, and publish when ready. The Studio uses a bounded, tenant-scoped toolset so every change is validated before it's saved, and publishing stays an explicit operator action. See [Quickstart](/quickstart) to get started.
+
+**Multi-tenant marketing pages.** Each tenant now has isolated draft and published content. Public marketing pages render from your tenant's own content at `/sites/<your-tenant>/<path>`, with drafts hidden from public view until you publish.
+
+**Complete 13-section homepage block library.** The block kit now ships every section needed for a full homepage:
+
+- Header and footer with brand chrome, navigation, and trust badges
+- Hero band with a rotating-word headline and feature list
+- Product cards, category tiles, and the treatment showcase carousel
+- Weight-loss plan feature band and green CTA banner
+- BMI calculator with a projected-loss slider and compliance disclaimer
+- Results before/after marquee
+- Blog carousel, FAQ accordion, and benefits marquee
+
+Every section is fully editable from the Studio.
+
+## Updates
+
+**Studio now runs on Fireworks GLM-5.2.** The Studio chat model is now GLM-5.2 via Fireworks, giving faster tool-calling and better instruction following. No action needed — existing Studio workflows continue to work.
+
+**Real Oriah imagery in the block kit.** Product, category, plan, CTA, and blog blocks now ship with production imagery instead of placeholders.
+
+## Bug fixes
+
+- Fixed Hero and BlogPosts sections silently disappearing when optional image fields were left empty. Optional imagery now renders correctly whether set or unset.
+- Fixed a rendering issue where blocks with unset optional fields were skipped on the public site.
