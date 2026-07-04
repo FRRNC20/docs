@@ -1,0 +1,37 @@
+---
+title: "Changelog"
+description: "New features, updates, and fixes for Cuvo Health."
+---
+
+<Update label="July 4, 2026">
+
+## New features
+
+**AI Website Studio**
+Build and refine your clinic's public site in a conversational workflow. Chat with the studio to make edits, preview the result, and publish when you're ready — no code required.
+
+**Block kit for public sites**
+A full library of building blocks is now available for public-facing pages, including hero sections, benefits marquee, FAQ, blog posts, treatment cards, product and category cards, weight-loss plan, CTA banner, BMI calculator, results carousel, and site header and footer. Compose these blocks to launch a complete homepage.
+
+**Multi-tenant workspaces**
+Each organization now operates in an isolated workspace. Team members are scoped by membership, and the active organization is resolved automatically based on the host you sign in to.
+
+## Updates
+
+**Stronger tenant isolation for patient data**
+Patient records and all related protected health information are now enforced with row-level security. Data belonging to one organization cannot be read or modified from another, even in edge cases involving shared journeys or audit logs.
+
+**Tenant-scoped drafts and publishing**
+Content edits, drafts, and publishes are now scoped to the active organization end-to-end, so previews and live pages always reflect the correct tenant.
+
+**Required organization on new records**
+New patients and related records now require an organization at creation time, ensuring every record is properly scoped from day one.
+
+## Fixes
+
+- Public pages now render correctly when optional fields are empty instead of showing broken sections.
+- Closed a cross-tenant read path in patient journeys and made the tenant resolver fail-closed when no active organization is detected.
+- Advancing a patient's journey stage now respects tenant scope on every read and write.
+- Seeding new environments no longer fails under strict row-level security.
+
+</Update>
