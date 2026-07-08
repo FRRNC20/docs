@@ -3,6 +3,44 @@ title: "Product changelog"
 description: "Weekly release notes for Cuvo Health covering new features, product updates, workflow improvements, and bug fixes for the platform."
 ---
 
+<Update label="July 7, 2026">
+
+## 🚀 New features
+
+**Products manager**
+
+The new Products area at `/products` replaces the Treatments Center with a Shopify-style catalog experience. Manage your full product roster from a single roster view and open any product in a dedicated editor.
+
+The list page includes:
+
+- Roster view with search, type, category, status, and sort filters synced to the URL
+- Price and States summary columns at a glance
+- Active/inactive toggle directly on each row — flip a product live or back to draft without opening the editor
+- Excluded-states info tooltip on the States column that lists blocked states by full name on hover
+
+**Product editor**
+
+Every product opens in a full-page editor at `/products/[id]`, and new products start from `/products/new`. The editor uses a responsive, capped-width layout built around the patient-page bar. A live snapshot strip shows the current price, plans, and state coverage, and a save bar tracks draft-vs-baseline changes.
+
+Editor cards cover:
+
+- **Identity, Media, Highlights, Organization, Storefront** — core product metadata, direct-to-S3 media upload, and site placement
+- **Commerce** — headline price plus purchase-option plans, with per-plan pricing surfaced inline
+- **Medication** — type-gated card for medication products
+- **State availability** — 51-state grid with Enable/Disable all and a behavior toggle that either hides the product or shows it as unavailable in excluded states
+- **Purchase options** — checkbox-driven plan selection (one-time and subscription cadences) with per-plan dollar fields and min-1/unique validation
+
+**Variations and custom cadences**
+
+Products now support multiple variations — each with its own name and its own purchase-option menu — so you can offer different strengths, pack sizes, or bundles under a single product. Alongside the standard preset cadences, you can add **custom cadences** using an "Every N &lt;unit&gt; · Add plan" control. Preset-equivalent intervals normalize back onto the preset row, and duplicates are rejected inline. The snapshot strip surfaces active plans plus a `· N variations` suffix so operators can see the full shape of a product at a glance.
+
+## ✨ Updates
+
+- **Treatments Center retired** — The legacy `/catalog` area and the Treatments Center navigation entry have been removed. Everything now lives under Products.
+- **Archive and restore** — Products can be archived from the editor (behind a confirm) and restored later; archived rows in the list stay locked until you restore them from the editor.
+
+</Update>
+
 <Update label="July 4, 2026">
 
 ## 🚀 New features
