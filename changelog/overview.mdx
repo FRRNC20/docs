@@ -3,6 +3,36 @@ title: "Product changelog"
 description: "Weekly release notes for Cuvo Health covering new features, product updates, workflow improvements, and bug fixes for the platform."
 ---
 
+<Update label="July 8, 2026">
+
+## 🚀 New features
+
+**One inbox per patient in the care messenger**
+
+The care messenger inbox is now organized around the patient, not the thread. Every channel a patient writes on — in-app, SMS, email — rolls up under one grouped row per person. The conversation pane shows a thread strip with each of that patient's threads and their per-thread unread state. The patient's name in the thread header and details panel now links directly to their profile, so you can jump from a message to the chart in one click.
+
+Each patient also has exactly **one canonical in-app conversation** that is reused forever, labeled **"In app"** across the inbox, thread strip, and details panel. Composing a new in-app message no longer creates a new thread — it appends to the patient's existing "Your care team" conversation.
+
+**SMS ↔ in-app mirror**
+
+When a patient opts in, the SMS and in-app planes merge into a single conversation:
+
+- **Outbound:** A care-team reply sent from the in-app thread also fans out as a real SMS to the patient's phone, shadowed on the same canonical conversation. The in-app message keeps its full length; the SMS copy is truncated to a single segment at the dispatch boundary.
+- **Inbound:** When a patient texts back, the SMS is routed into the same in-app "care" thread instead of a separate SMS-only thread.
+
+The result: patients and staff see one unified conversation regardless of channel. The mirror requires the patient to have a phone on file, not be opted out of care SMS, and Twilio to be configured for the tenant.
+
+## ✨ Updates
+
+**Care notifications are now throttled**
+
+Contentless "you have a new message" notifications to patients are now capped at **one per hour per patient**. An unread catch-up sweep still pings a patient who received messages during the quiet window once the hour is out. When the SMS mirror is on and a message is delivered as SMS, that SMS *is* the notification — no duplicate ping is sent. If the SMS fails, the throttled contentless ping is used as a fallback.
+
+- Notifications now also fan out over SMS, not just in-app.
+- The catch-up sweep runs on a bounded 5-minute cadence and coalesces pending notifications per patient.
+
+</Update>
+
 <Update label="July 4, 2026">
 
 ## 🚀 New features
