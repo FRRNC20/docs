@@ -3,6 +3,21 @@ title: "Product changelog"
 description: "Weekly release notes for Cuvo Health covering new features, product updates, workflow improvements, and bug fixes for the platform."
 ---
 
+<Update label="July 9, 2026">
+
+## 🚀 New features
+
+**Per-medication intakes on the clinic dashboard**
+
+Each medication a patient requests now has its own intake instance, created at purchase and tracked independently through the clinic tools:
+
+- **Command Center — Intake tab.** A new **Medication intakes** panel lists one row per requested medication with its status (Pending or Completed), category, questionnaire type (Initial or Follow-up), request timestamp, and completion timestamp. Pending rows warn that the provider's review is blocked until the patient submits that medication's intake. Completed rows flagged for clinician attention surface a **Needs review** badge.
+- **Dashboard Actions — new `intake_pending` source.** Outstanding medication intakes appear in the actions queue with their own outreach cadence (SMS at 0h, email at +2d, call at +5d, cold at 14d) and the standard **Mark complete** / **Unresponsive** resolutions. The playbook nudges the patient to finish the intake so the provider can review the order.
+
+Use these surfaces to spot which specific medication is holding up a patient's review, rather than treating intake as a single per-patient step.
+
+</Update>
+
 <Update label="July 4, 2026">
 
 ## 🚀 New features
