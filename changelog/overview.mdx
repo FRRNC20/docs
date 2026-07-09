@@ -3,6 +3,35 @@ title: "Product changelog"
 description: "Weekly release notes for Cuvo Health covering new features, product updates, workflow improvements, and bug fixes for the platform."
 ---
 
+<Update label="July 9, 2026">
+
+## 🚀 New features
+
+**Live questionnaire builder**
+
+Staff edits in the questionnaire builder now save directly to the database and become the source that serves patient intake flows on the next request. The mock save is gone — publish real changes to `/apply/*` funnels without a code deploy.
+
+**Patient-eye preview**
+
+The toolbar **Preview** button now opens an interactive preview of the current canvas from the patient's perspective, including:
+
+- `showIf` visibility between questions
+- Exclusive option behavior (for example, "None of the above")
+- Non-blocking hard-stop warnings
+- BMI composite input (weight in pounds, height in feet and inches)
+- Consent statements
+
+Use it to sanity-check a flow before saving.
+
+## ✨ Updates
+
+- **Servability gate on save** — The builder rejects structures that would not serve cleanly to patients: unsupported question types, duplicate option labels, hard-stop or exclusive labels that do not match an option, `showIf` referencing a later question, missing BMI composite fields (`weightLbs`, `heightFt`, `heightIn`), or untrimmed labels and options.
+- **Atomic option renames** — Renaming an option now propagates on blur to every reference in one step: the question's own hard-stop and exclusive settings, plus any other question's `showIf` value that pointed at it. In-flight keystrokes no longer trigger partial renames.
+- **Preview visibility parity** — The preview's `notEquals` handling now matches the live serving logic, so steps that depend on an unanswered question stay visible in preview just as they do for patients.
+- **Audit logging** — Questionnaire updates record the exact question IDs that changed.
+
+</Update>
+
 <Update label="July 4, 2026">
 
 ## 🚀 New features
