@@ -3,6 +3,36 @@ title: "Product changelog"
 description: "Weekly release notes for Cuvo Health covering new features, product updates, workflow improvements, and bug fixes for the platform."
 ---
 
+<Update label="July 10, 2026">
+
+## 🚀 New features
+
+**Patient identity verification**
+
+Verify patient identity end-to-end from the Command Center. Each patient now has an **Identity** tab that surfaces:
+
+- **Status card** — current decision (Approved, Declined, In Review, Not Started), last update, and the workflow the session ran through. Standalone verifications with no hosted workflow render as `—`.
+- **Checks card** — individual identity checks (document authenticity, face match, liveness, and more) with per-check pass/fail state.
+- **Document card** — extracted document details (type, number, issuing country, expiration).
+- **Media strip** — the portrait, document front and back, liveness capture, and face-match frames. Images are served through short-lived presigned links from a private PHI bucket rather than the provider's live URLs.
+- **Session history** — every verification attempt the patient has made, newest first.
+- **Event log** — a chronological audit trail of state changes on the identity record.
+
+**Identity step in Get Started**
+
+The new-patient Get Started flow now includes a three-part identity step: personal details → document upload → review. Patients can complete verification inline before the rest of onboarding continues.
+
+**ID portrait on the patient roster and console header**
+
+The most recent Approved ID portrait now appears next to the patient on the roster and in the patient console header. Portraits are fetched as a single batched, presigned request per page. Patients without an Approved portrait fall back to initials.
+
+## ✨ Updates
+
+- **Standalone verifications supported** — Identity records without a hosted verification workflow are accepted; the workflow field renders as `—` wherever it appears.
+- **PHI media hardening** — Provider-issued media URLs are stripped from the identity decision before it reaches the browser. Staff always view portrait, document, liveness, and face-match images through short-lived presigned links from the private PHI bucket.
+
+</Update>
+
 <Update label="July 4, 2026">
 
 ## 🚀 New features
