@@ -3,13 +3,40 @@ title: "Product changelog"
 description: "Weekly release notes for Cuvo Health covering new features, product updates, workflow improvements, and bug fixes for the platform."
 ---
 
+<Update label="July 10, 2026">
+
+## 🚀 New features
+
+**Visual questionnaire builder**
+
+The questionnaire builder is now a node-and-edge canvas. Drop question nodes onto the canvas, connect them with condition edges to branch on specific answers, and drag to reorder the served sequence. The old card/toolbox layout has been replaced.
+
+**Draft and publish workflow**
+
+Questionnaire edits now save to a **draft** that is separate from the version served to patients. Iterate freely, then click **Publish** to promote the draft to the live structure. Publishing runs the servability gate — if it fails, patients keep seeing the last published version.
+
+**Live preview link**
+
+A new **Live preview** panel in the builder shows a tokenized URL that renders your current draft inside the real patient app. Copy the link to open it on your phone, or keep the inline iframe open while you edit — it polls the draft and refreshes as you save. The link is minted on your first autosave.
+
+**Per-product intake questionnaires**
+
+The medication card in the product editor now has **Initial intake** and **Follow-up intake** pickers. Choose any enabled questionnaire per product, or leave either set to **Vertical default** to keep the product category's standard intake. Purchases of that product serve the linked questionnaire instead of the category default.
+
+## ✨ Updates
+
+- **Persistent app shell** — The sidebar, main layout, and call provider now stay mounted as you move between sections, so navigation is instant and in-flight state (open calls, unsaved panels) survives cross-section clicks.
+- **Linked-but-disabled questionnaires stay visible** — If a product links to a questionnaire that has since been disabled, the picker still shows the link with an "unavailable" marker so you can re-point or reset it.
+
+</Update>
+
 <Update label="July 9, 2026">
 
 ## 🚀 New features
 
 **Live questionnaire builder**
 
-Staff edits in the questionnaire builder now save directly to the database and become the source that serves patient intake flows on the next request. The mock save is gone — publish real changes to `/apply/*` funnels without a code deploy.
+Staff edits in the questionnaire builder now persist to the database and become the source that serves patient intake flows. The mock save is gone — publish real changes to `/apply/*` funnels without a code deploy.
 
 **Patient-eye preview**
 
