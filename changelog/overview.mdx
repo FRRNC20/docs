@@ -3,6 +3,116 @@ title: "Product changelog"
 description: "Weekly release notes for Cuvo Health covering new features, product updates, workflow improvements, and bug fixes for the platform."
 ---
 
+<Update label="July 15, 2026">
+
+## 🚀 New features
+
+**Funnel-style questionnaire builder**
+
+The questionnaire builder is now a full quiz-funnel builder. Compose each screen from a palette of 30+ blocks, arrange multiple blocks per page, and reorder pages from a live-thumbnail rail. The node graph is still available under the **Flow** mode for viewing branching at a glance, but the WYSIWYG page editor is now the default.
+
+**Multi-block pages**
+
+Add a **Page** to your questionnaire to place several blocks on a single screen — for example, a headline, an image, and two input fields — instead of one question per screen. Input blocks on a page each get a stable `variable` name so their answers stay keyed correctly across renames.
+
+**Block palette**
+
+Choose from block categories:
+
+- **Input** — Multiple Choice, Picture Choice, Input Field, Phone Number, Date Picker, Textarea, Consent Checkbox, Select, Scale, Icon Rating, Range Slider, Upload, Address
+- **Display** — Headline, Text, List, Check List, Image, Video, Logo Bar, Text + Image, Photo Carousel, Accordion, Loader, List Loader
+- **Layout** — Container, Sticky Bar, Separator, Progress, Steps
+- **Navigation** — Button, Navigation, Links
+
+Each block has its own Content, Settings, and Design tabs in the right-hand inspector.
+
+**Rules panel**
+
+The new **Rules** mode lets you define flow-level logic that runs on advance:
+
+- **Route** to a specific page based on an answer or scoring result
+- **Show or hide** individual blocks based on conditions (hide wins on conflicts)
+- **Fallback** rule catches anything that doesn't match earlier rules
+
+Per-option routing is also available directly on choice blocks via `optionTargets`.
+
+**Scoring**
+
+Build weighted-sum scoring formulas from answers on earlier questions in the **Scoring** mode. Reference the score in later rules to route patients based on quiz results, with a live range preview as you edit weights.
+
+**Theme panel**
+
+Customize the funnel's look from the **Theme** mode. Set colors, typography, buttons, borders, header, progress, and page transitions using tokens. Each field is three-state (set / inherit / clear) so you can override just what you need. A built-in contrast check flags color pairs that fail WCAG.
+
+**Consent checkbox with snapshot**
+
+The Consent Checkbox block captures a hashed snapshot of the label text (`labelVersion`) at submission time, so you have a durable record of exactly which consent copy each patient agreed to — even if the label is edited later.
+
+## ✨ Updates
+
+- **Legacy questionnaires keep serving unchanged** — Existing questionnaires built from the classic 13 question types render exactly as before. New capabilities are opt-in: add a **Page** block to start using multi-block layouts, rules, scoring, or theming.
+- **Per-block visibility** — Any block on a page can be hidden with a `showIf` condition or hidden on a specific device (desktop or mobile).
+- **Publish gate hardening** — Publishing rejects pages with duplicate block variables, unresolved rule references, non-HTTPS redirect URLs, media blocks without content, and invalid theme colors.
+- **Sensitive blocks suppress analytics** — Marking a block as `sensitive` prevents its answer from being emitted to analytics events.
+
+</Update>
+
+<Update label="July 10, 2026">
+
+## 🚀 New features
+
+**Visual questionnaire builder**
+
+The questionnaire builder is now a node-and-edge canvas. Drop question nodes onto the canvas, connect them with condition edges to branch on specific answers, and drag to reorder the served sequence. The old card/toolbox layout has been replaced.
+
+**Draft and publish workflow**
+
+Questionnaire edits now save to a **draft** that is separate from the version served to patients. Iterate freely, then click **Publish** to promote the draft to the live structure. Publishing runs the servability gate — if it fails, patients keep seeing the last published version.
+
+**Live preview link**
+
+A new **Live preview** panel in the builder shows a tokenized URL that renders your current draft inside the real patient app. Copy the link to open it on your phone, or keep the inline iframe open while you edit — it polls the draft and refreshes as you save. The link is minted on your first autosave.
+
+**Per-product intake questionnaires**
+
+The medication card in the product editor now has **Initial intake** and **Follow-up intake** pickers. Choose any enabled questionnaire per product, or leave either set to **Vertical default** to keep the product category's standard intake. Purchases of that product serve the linked questionnaire instead of the category default.
+
+## ✨ Updates
+
+- **Persistent app shell** — The sidebar, main layout, and call provider now stay mounted as you move between sections, so navigation is instant and in-flight state (open calls, unsaved panels) survives cross-section clicks.
+- **Linked-but-disabled questionnaires stay visible** — If a product links to a questionnaire that has since been disabled, the picker still shows the link with an "unavailable" marker so you can re-point or reset it.
+
+</Update>
+
+<Update label="July 9, 2026">
+
+## 🚀 New features
+
+**Live questionnaire builder**
+
+Staff edits in the questionnaire builder now persist to the database and become the source that serves patient intake flows. The mock save is gone — publish real changes to `/apply/*` funnels without a code deploy.
+
+**Patient-eye preview**
+
+The toolbar **Preview** button now opens an interactive preview of the current canvas from the patient's perspective, including:
+
+- `showIf` visibility between questions
+- Exclusive option behavior (for example, "None of the above")
+- Non-blocking hard-stop warnings
+- BMI composite input (weight in pounds, height in feet and inches)
+- Consent statements
+
+Use it to sanity-check a flow before saving.
+
+## ✨ Updates
+
+- **Servability gate on save** — The builder rejects structures that would not serve cleanly to patients. Blocked cases include unsupported question types, duplicate option labels, hard-stop or exclusive labels that do not match an option, `showIf` referencing a later question, missing BMI composite fields (`weightLbs`, `heightFt`, `heightIn`), and untrimmed labels or options.
+- **Atomic option renames** — Renaming an option now propagates on blur to every reference in one step: the question's own hard-stop and exclusive settings, plus any other question's `showIf` value that pointed at it. In-flight keystrokes no longer trigger partial renames.
+- **Preview visibility parity** — The preview's `notEquals` handling now matches the live serving logic, so steps that depend on an unanswered question stay visible in preview just as they do for patients.
+- **Audit logging** — Questionnaire updates record the exact question IDs that changed.
+
+</Update>
+
 <Update label="July 4, 2026">
 
 ## 🚀 New features
