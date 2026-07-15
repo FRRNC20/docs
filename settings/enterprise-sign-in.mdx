@@ -1,0 +1,78 @@
+---
+title: "Enterprise sign-in"
+description: "Enable Google Workspace SSO, Okta SSO, and X.509 client-certificate sign-in for the Cuvo Health staff console."
+---
+
+The staff console supports several enterprise sign-in methods in addition to the built-in email and Microsoft Entra options. Each method is **opt-in per deployment**: configure its environment variables and the corresponding button appears on the login form. Leave them unset and the button — along with its backend endpoints — is not registered at all.
+
+<Note>
+  Enterprise sign-in methods authenticate **pre-provisioned staff only**. They can sign an existing user in, but they never create a new account. Invite staff through the normal onboarding flow first.
+</Note>
+
+## Available methods
+
+| Method | Enable by setting |
+| --- | --- |
+| Google Workspace SSO | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` |
+| Okta SSO (OpenID Connect) | `OKTA_CLIENT_ID`, `OKTA_CLIENT_SECRET`, `OKTA_ISSUER` |
+| X.509 client-certificate sign-in | `X509_TRUSTED_CA_PEM` |
+| Microsoft Entra SSO | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`, `MICROSOFT_TENANT_ID` |
+
+You can enable any combination — the login form shows an icon button for each active provider.
+
+## Google Workspace SSO
+
+Set both variables to activate the Google button on the login form:
+
+```bash
+GOOGLE_CLIENT_ID=your-google-oauth-client-id
+GOOGLE_CLIENT_SECRET=your-google-oauth-client-secret
+```
+
+Create the OAuth client in Google Cloud Console and add your deployment's callback URL (`https://<your-app>/api/auth/callback/google`) to the authorized redirect URIs.
+
+## Okta SSO
+
+Okta sign-in uses OpenID Connect against your org's authorization server:
+
+```bash
+OKTA_CLIENT_ID=your-okta-client-id
+OKTA_CLIENT_SECRET=your-okta-client-secret
+OKTA_ISSUER=https://your-org.okta.com/oauth2/default
+```
+
+<Warning>
+  `OKTA_ISSUER` **must be an `https://` URL**. The app refuses to boot if it is set to anything else, mirroring the protocol check applied to the main app URL.
+</Warning>
+
+In your Okta application, register the callback `https://<your-app>/api/auth/oauth2/callback/okta` and grant the `openid`, `profile`, and `email` scopes.
+
+## X.509 client-certificate sign-in
+
+Set the trusted issuing CA to enable certificate sign-in:
+
+```bash
+X509_TRUSTED_CA_PEM="-----BEGIN CERTIFICATE-----
+...
+-----END CERTIFICATE-----"
+```
+
+The value accepts either a raw PEM or a base64-encoded PEM. When present, a **Sign in with certificate** button appears on the login form and opens a dialog that accepts either:
+
+- A `.p12` or `.pfx` bundle plus its passphrase, or
+- A `.pem`/`.crt` file **together with its private-key file** and passphrase.
+
+<Info>
+  Because mTLS is not available at the edge, the browser performs an application-layer proof-of-possession: it fetches a server-issued nonce, signs it with the certificate's private key, and posts the signature back for verification against the pinned CA. Certificates must be issued directly by the CA in `X509_TRUSTED_CA_PEM`.
+</Info>
+
+If `X509_TRUSTED_CA_PEM` is set but doesn't parse as a valid certificate, the app fails fast on boot rather than at first sign-in.
+
+## Partial configuration errors
+
+Each SSO method is all-or-nothing. Setting some but not all of a method's variables prevents the app from starting:
+
+- Google — both `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` are required together.
+- Okta — all three of `OKTA_CLIENT_ID`, `OKTA_CLIENT_SECRET`, and `OKTA_ISSUER` are required together.
+
+Unset every variable for a method to disable it entirely; its button and its callback/challenge endpoints will not exist.
