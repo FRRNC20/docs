@@ -1,6 +1,6 @@
 ---
 title: "Enterprise sign-in"
-description: "Enable Google Workspace SSO, Okta SSO, and X.509 client-certificate sign-in for the Cuvo Health staff console."
+description: "Configure Google Workspace SSO, Okta SSO, and X.509 client-certificate sign-in on the Cuvo Health staff console using per-method environment variables."
 ---
 
 The staff console supports several enterprise sign-in methods in addition to the built-in email and Microsoft Entra options. Each method is **opt-in per deployment**: configure its environment variables and the corresponding button appears on the login form. Leave them unset and the button — along with its backend endpoints — is not registered at all.
@@ -63,7 +63,7 @@ The value accepts either a raw PEM or a base64-encoded PEM. When present, a **Si
 - A `.pem`/`.crt` file **together with its private-key file** and passphrase.
 
 <Info>
-  Because mTLS is not available at the edge, the browser performs an application-layer proof-of-possession: it fetches a server-issued nonce, signs it with the certificate's private key, and posts the signature back for verification against the pinned CA. Certificates must be issued directly by the CA in `X509_TRUSTED_CA_PEM`.
+  Because mTLS is not available at the edge, the browser performs an application-layer proof-of-possession. It fetches a server-issued nonce, signs it with the certificate's private key, and posts the signature back for verification against the pinned CA. Certificates must be issued directly by the CA in `X509_TRUSTED_CA_PEM`.
 </Info>
 
 If `X509_TRUSTED_CA_PEM` is set but doesn't parse as a valid certificate, the app fails fast on boot rather than at first sign-in.
