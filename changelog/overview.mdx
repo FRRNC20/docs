@@ -3,6 +3,60 @@ title: "Product changelog"
 description: "Weekly release notes for Cuvo Health covering new features, product updates, workflow improvements, and bug fixes for the platform."
 ---
 
+<Update label="July 15, 2026">
+
+## 🚀 New features
+
+**Funnel-style questionnaire builder**
+
+The questionnaire builder is now a full quiz-funnel builder. Compose each screen from a palette of 30+ blocks, arrange multiple blocks per page, and reorder pages from a live-thumbnail rail. The node graph is still available under the **Flow** mode for viewing branching at a glance, but the WYSIWYG page editor is now the default.
+
+**Multi-block pages**
+
+Add a **Page** to your questionnaire to place several blocks on a single screen — for example, a headline, an image, and two input fields — instead of one question per screen. Input blocks on a page each get a stable `variable` name so their answers stay keyed correctly across renames.
+
+**Block palette**
+
+Choose from block categories:
+
+- **Input** — Multiple Choice, Picture Choice, Input Field, Phone Number, Date Picker, Textarea, Consent Checkbox, Select, Scale, Icon Rating, Range Slider, Upload, Address
+- **Display** — Headline, Text, List, Check List, Image, Video, Logo Bar, Text + Image, Photo Carousel, Accordion, Loader, List Loader
+- **Layout** — Container, Sticky Bar, Separator, Progress, Steps
+- **Navigation** — Button, Navigation, Links
+
+Each block has its own Content, Settings, and Design tabs in the right-hand inspector.
+
+**Rules panel**
+
+The new **Rules** mode lets you define flow-level logic that runs on advance:
+
+- **Route** to a specific page based on an answer or scoring result
+- **Show or hide** individual blocks based on conditions (hide wins on conflicts)
+- **Fallback** rule catches anything that doesn't match earlier rules
+
+Per-option routing is also available directly on choice blocks via `optionTargets`.
+
+**Scoring**
+
+Build weighted-sum scoring formulas from answers on earlier questions in the **Scoring** mode. Reference the score in later rules to route patients based on quiz results, with a live range preview as you edit weights.
+
+**Theme panel**
+
+Customize the funnel's look from the **Theme** mode. Set colors, typography, buttons, borders, header, progress, and page transitions using tokens. Each field is three-state (set / inherit / clear) so you can override just what you need. A built-in contrast check flags color pairs that fail WCAG.
+
+**Consent checkbox with snapshot**
+
+The Consent Checkbox block captures a hashed snapshot of the label text (`labelVersion`) at submission time, so you have a durable record of exactly which consent copy each patient agreed to — even if the label is edited later.
+
+## ✨ Updates
+
+- **Legacy questionnaires keep serving unchanged** — Existing questionnaires built from the classic 13 question types render exactly as before. New capabilities are opt-in: add a **Page** block to start using multi-block layouts, rules, scoring, or theming.
+- **Per-block visibility** — Any block on a page can be hidden with a `showIf` condition or hidden on a specific device (desktop or mobile).
+- **Publish gate hardening** — Publishing rejects pages with duplicate block variables, unresolved rule references, non-HTTPS redirect URLs, media blocks without content, and invalid theme colors.
+- **Sensitive blocks suppress analytics** — Marking a block as `sensitive` prevents its answer from being emitted to analytics events.
+
+</Update>
+
 <Update label="July 10, 2026">
 
 ## 🚀 New features
